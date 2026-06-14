@@ -7,7 +7,7 @@ import DataTable from './components/DataTable';
 import AdminControls from './components/AdminControls'; // Import Admin Block
 import './App.css';
 
-const API_END_POINT = 'http://localhost:5000/api/logs';
+const API_END_POINT = 'http://localhost:5000/api/sensor/data';
 
 export default function App() {
   const [dataLogs, setDataLogs] = useState([]);
@@ -47,7 +47,7 @@ export default function App() {
       {/* Top Selector Banner mimicking Login Switch */}
       <div className="role-banner">
         <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-          {currentRole === 'admin' ? <ShieldCheck size={16} color="#ea580c" /> : <User size={16} color="#64748b" />}
+          {currentRole === 'admin' ? <ShieldCheck size={16} color="#ea580c" /> : <User size={16} color="#ffffff" />}
           View Access Mode: <strong>{currentRole.toUpperCase()}</strong>
         </span>
         <div>
