@@ -7,7 +7,10 @@ import DataTable from './components/DataTable';
 import AdminControls from './components/AdminControls'; // Import Admin Block
 import './App.css';
 
-const API_END_POINT = 'http://localhost:5000/api/sensor/data';
+const TIME_WINDOW_SECONDS = 30;
+const POLL_INTERVAL_MS = 3000;
+const API_BASE = 'http://localhost:5000/api/sensor/data';
+const buildEndpoint = () => `${API_BASE}?recentSeconds=${TIME_WINDOW_SECONDS}`;
 
 export default function App() {
   const [dataLogs, setDataLogs] = useState([]);
@@ -18,7 +21,7 @@ export default function App() {
 
   const fetchSensorLogs = async () => {
     try {
-      const response = await axios.get(API_END_POINT);
+      const response = await axios.get(buildEndpoint());
       setDataLogs(response.data);
       setErrorSyncing(false);
     } catch (err) {
