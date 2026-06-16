@@ -3,9 +3,9 @@
 #include <DHT.h>
 #include <time.h>
 
-const char* ssid = "nsubash38_wifi";
-const char* password = "CLB283A586";
-const char* serverUrl = "http://192.168.1.70:5000/api/sensor/data";
+const char* ssid = "wifi_name"; //Put the name of your own network
+const char* password = "password"; //Put the password of your own network your connecting internet is mandatory
+const char* serverUrl = "http://IPv4 address :5000/api/sensor/data"; //Put the IP address of your own network and don't change the port number
 
 #define DHTPIN 4
 #define DHTTYPE DHT22
