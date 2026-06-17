@@ -62,25 +62,46 @@ const emitSensorData = async () => {
     }
 };
 
+const calculateAverageTemperature = async () => {
+    try {
+        const result = await SensorData.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    averageTemperature: { $avg: "$temperature" }
+                }
+            }
+        ]);
+        return result[0] ? result[0].averageTemperature : null;
+    } catch (error) {
+        console.error("Error calculating average temperature:", error);
+        return null;
+    }
+};
+
+const calculateAverageHumidity = async () => {
+    try {
+        const result = await SensorData.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    averageHumidity: { $avg: "$humidity" }
+                }
+
+        ]);
+        return result[0] ? result[0].averageHumidity : null;
+    }
+    catch (error) {
+        console.error("Error calculating average humidity:", error);
+        return null;
+    }
+};
+
+
 module.exports = {
     addSensorData,
     getSensorData,
-    emitSensorData
-};const emitSensorData = async () => {
-    try {
-        const data = await SensorData.find().sort({ createdAt: -1 }).limit(1);
-        console.log("Emitting sensor data:", data);
-        const Data = data.map(log => ({
-            temperature: log.temperature,
-            humidity: log.humidity,
-            timestamp: log.createdAt
-        }));
-
-        if (data.length > 0) {
-            io.emit('newSensorData', Data);
-        }
-    }
-    catch (error) {
-        console.error("Error emitting sensor data:", error);
-    }
+    calculateAverageTemperature,
+    calculateAverageHumidity,
+    emitSensorData,
 };
